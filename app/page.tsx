@@ -46,7 +46,12 @@ function startMotionPreview(event: PointerEvent<HTMLDivElement>) {
   if (!video || !video.paused) return;
   video.dataset.hoverPreview = 'true';
   video.muted = true;
-  void video.play().catch(() => { delete video.dataset.hoverPreview; });
+  video.loop = true;
+  void video.play().catch(() => {
+    delete video.dataset.hoverPreview;
+    video.loop = false;
+    video.muted = false;
+  });
 }
 
 function stopMotionPreview(event: PointerEvent<HTMLDivElement>) {
@@ -55,6 +60,7 @@ function stopMotionPreview(event: PointerEvent<HTMLDivElement>) {
   delete video.dataset.hoverPreview;
   video.pause();
   video.currentTime = 0;
+  video.loop = false;
   video.muted = false;
 }
 
@@ -62,6 +68,7 @@ function takeOverMotionPreview(event: PointerEvent<HTMLDivElement>) {
   const video = event.currentTarget.querySelector('video');
   if (!video || video.dataset.hoverPreview !== 'true') return;
   delete video.dataset.hoverPreview;
+  video.loop = false;
   video.muted = false;
 }
 
