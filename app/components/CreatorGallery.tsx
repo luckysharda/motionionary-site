@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import references from '../data/creator-motion-references.json';
+import motionVideos from '../data/motion-videos';
 
 type Reference = (typeof references)[number];
 type Filter = 'All' | 'Canvas' | 'SVG' | '3D / WebGL' | 'Other';
@@ -52,9 +53,32 @@ export default function CreatorGallery() {
           <h2 id="creator-library-title">Ideas in<br /><em>good company.</em></h2>
         </div>
         <div className="creator-library-intro">
-          <p className="section-lede">A directory of 229 motion-design posts shared by their creators. Explore the original videos on their own posts; each link opens at the source.</p>
-          <p className="creator-rights-note"><span aria-hidden="true">↗</span> Creator-hosted videos · prompts and media stay with their authors</p>
+          <p className="section-lede">A growing gallery of motion studies alongside a directory of 229 creator-shared references.</p>
+          <p className="creator-rights-note"><span aria-hidden="true">↗</span> Studio-supplied clips below · external creator posts stay at their source</p>
         </div>
+      </div>
+
+      <div className="creator-video-heading">
+        <div><p className="eyebrow"><span>VIDEO / {String(motionVideos.length).padStart(2, '0')}</span> MOTION STUDIES</p><h3>Selected in<br /><em>good company.</em></h3></div>
+        <p className="section-lede">{motionVideos.length} video studies to start the collection. More clips can be added to this gallery as they’re ready.</p>
+      </div>
+      <div className="creator-video-grid">
+        {motionVideos.map((video, index) => (
+          <article className="creator-card creator-video-card" key={video.id}>
+            <div className="creator-video-frame">
+              <video controls playsInline preload="none" poster={video.poster} aria-label={`Play ${video.title}`}>
+                <source src={video.src} type="video/mp4" />
+                Your browser does not support embedded video. <a href={video.src}>Open {video.title}</a>.
+              </video>
+              <span className="creator-card-index">M / {String(index + 1).padStart(3, '0')}</span>
+            </div>
+            <div className="creator-card-meta">
+              <div className="creator-byline"><span className="creator-video-title">{video.title}</span><span>{video.duration}</span></div>
+              <div className="creator-tags"><span>Motion design</span><span>Video</span></div>
+              <p className="creator-video-credit">Studio-supplied clip · preview and play</p>
+            </div>
+          </article>
+        ))}
       </div>
 
       <div className="creator-toolbar">
@@ -91,7 +115,7 @@ export default function CreatorGallery() {
 
       {filtered.length === 0 && <p className="creator-empty">No creator posts match that search. Try another handle or technique.</p>}
       {visibleCount < filtered.length && <button className="creator-more" type="button" onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, filtered.length))}>Show more references <span>({filtered.length - visibleCount} remaining)</span><i aria-hidden="true">↓</i></button>}
-      <p className="creator-attribution">Index metadata adapted from <a href="https://github.com/yihui-dev/awesome-opus5-5-videos" target="_blank" rel="noreferrer">awesome-opus5-5-videos</a> (MIT). Individual videos and posts remain the creators’ property. Motionionary links to the original posts and does not host those clips or prompts.</p>
+      <p className="creator-attribution">Index metadata adapted from <a href="https://github.com/yihui-dev/awesome-opus5-5-videos" target="_blank" rel="noreferrer">awesome-opus5-5-videos</a> (MIT). The four studio-supplied clips above are separate from this source-linked index; external videos and prompts remain with their creators.</p>
     </section>
   );
 }
