@@ -82,7 +82,7 @@ export default function Home() {
       <div className="announcement"><span className="pulse-dot" /> INDEPENDENT MOTION DESIGN FOR DIGITAL PRODUCTS <a href="#contact">TAKING PROJECT BRIEFS <span aria-hidden="true">↗</span></a></div>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Motionionary home"><img className="brand-icon" src="/motionionary-mark.svg" alt="" /><span>MOTIONIONARY<span className="brand-sub">INDEPENDENT MOTION STUDIO</span></span></a>
-        <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a></nav>
+        <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#demos">Demos</a><a href="#services">Services</a><a href="#process">Process</a></nav>
         <a className="header-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
       </header>
 
@@ -114,10 +114,10 @@ export default function Home() {
           <div className="project-meta"><div><p className="project-category">{project.category}</p><h3>{project.title}</h3><p className="project-desc">{project.description}</p></div><span className="project-arrow" aria-hidden="true">↗</span></div>
         </article>)}</div>
         <p className="portfolio-note"><span className="note-mark">i</span> Concept work, not commissioned client work. No client outcomes or performance claims are implied.</p>
-        <section className="motion-film-library" aria-labelledby="motion-film-title">
+        <section className="motion-film-library" id="demos" aria-labelledby="motion-film-title">
           <div className="motion-film-heading">
-            <div><p className="eyebrow"><span>ORIGINAL / 07</span> MOTION DESIGN FILMS</p><h3 id="motion-film-title">Motion, in<br /><em>full colour.</em></h3></div>
-            <p className="section-lede">Original motion films by Motionionary. Press play to explore the work, pacing, and visual details.</p>
+            <div><p className="eyebrow"><span>DEMO VIDEOS / 07</span> ORIGINAL MOTION DESIGN</p><h3 id="motion-film-title">See the work<br /><em>in motion.</em></h3></div>
+            <p className="section-lede">Seven original demo videos by Motionionary. Press play to explore the animation, pacing, and visual details.</p>
           </div>
           <div className="motion-film-grid">
             {motionVideos.map((video, index) => (
@@ -127,10 +127,10 @@ export default function Home() {
                     <source src={video.src} type="video/mp4" />
                     Your browser does not support embedded video. <a href={video.src}>Open {video.title}</a>.
                   </video>
-                  <span className="motion-film-index">FILM / {String(index + 1).padStart(2, '0')}</span>
+                  <span className="motion-film-index">DEMO / {String(index + 1).padStart(2, '0')}</span>
                 </div>
                 <div className="motion-film-meta"><h4>{video.title}</h4><span>{video.duration}</span></div>
-                <p className="motion-film-tag">ORIGINAL MOTION DESIGN</p>
+                <p className="motion-film-tag">ORIGINAL DEMO VIDEO</p>
               </article>
             ))}
           </div>
@@ -162,7 +162,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="site-footer"><a className="wordmark" href="#top" aria-label="Motionionary home"><img className="brand-icon" src="/motionionary-mark.svg" alt="" /><span>MOTIONIONARY<span className="brand-sub">INDEPENDENT MOTION STUDIO</span></span></a><p>Original motion for products in motion.</p><div className="footer-links"><a href="#work">Work</a><a href="#contact">Project inquiry</a></div><span className="copyright">© MOTIONIONARY · CONCEPT PORTFOLIO</span></footer>
+      <footer className="site-footer"><a className="wordmark" href="#top" aria-label="Motionionary home"><img className="brand-icon" src="/motionionary-mark.svg" alt="" /><span>MOTIONIONARY<span className="brand-sub">INDEPENDENT MOTION STUDIO</span></span></a><p>Original motion for products in motion.</p><div className="footer-links"><a href="#work">Work</a><a href="#demos">Demo videos</a><a href="#contact">Project inquiry</a></div><span className="copyright">© MOTIONIONARY · CONCEPT PORTFOLIO</span></footer>
     </main>
   );
 }
