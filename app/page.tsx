@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type PointerEvent } from 'react';
 import motionVideos from './data/motion-videos';
 
 type Category = 'All' | 'Launch film' | 'Feature story' | 'Motion system';
@@ -39,6 +39,31 @@ const projects = [
 ];
 
 const categories: Category[] = ['All', 'Launch film', 'Feature story', 'Motion system'];
+
+function startMotionPreview(event: PointerEvent<HTMLDivElement>) {
+  if (event.pointerType !== 'mouse') return;
+  const video = event.currentTarget.querySelector('video');
+  if (!video || !video.paused) return;
+  video.dataset.hoverPreview = 'true';
+  video.muted = true;
+  void video.play().catch(() => { delete video.dataset.hoverPreview; });
+}
+
+function stopMotionPreview(event: PointerEvent<HTMLDivElement>) {
+  const video = event.currentTarget.querySelector('video');
+  if (!video || video.dataset.hoverPreview !== 'true') return;
+  delete video.dataset.hoverPreview;
+  video.pause();
+  video.currentTime = 0;
+  video.muted = false;
+}
+
+function takeOverMotionPreview(event: PointerEvent<HTMLDivElement>) {
+  const video = event.currentTarget.querySelector('video');
+  if (!video || video.dataset.hoverPreview !== 'true') return;
+  delete video.dataset.hoverPreview;
+  video.muted = false;
+}
 
 function Artwork({ shape, palette, storyboard }: { shape: string; palette: string; storyboard: boolean }) {
   return (
@@ -122,12 +147,13 @@ export default function Home() {
           <div className="motion-film-grid">
             {motionVideos.map((video, index) => (
               <article className="motion-film-card" key={video.id}>
-                <div className="motion-film-frame">
+                <div className="motion-film-frame" onPointerEnter={startMotionPreview} onPointerLeave={stopMotionPreview} onPointerDown={takeOverMotionPreview}>
                   <video controls playsInline preload="metadata" poster={video.poster} aria-label={`Play ${video.title}`}>
                     <source src={video.src} type="video/mp4" />
                     Your browser does not support embedded video. <a href={video.src}>Open {video.title}</a>.
                   </video>
                   <span className="motion-film-index">DEMO / {String(index + 1).padStart(2, '0')}</span>
+                  <span className="motion-preview-hint" aria-hidden="true"><span>HOVER FOR MOTION</span><span>TAP TO PLAY</span></span>
                 </div>
                 <div className="motion-film-meta"><h4>{video.title}</h4><span>{video.duration}</span></div>
                 <p className="motion-film-tag">ORIGINAL DEMO VIDEO</p>
