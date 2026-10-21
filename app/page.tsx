@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import motionVideos from './data/motion-videos';
 
 type Category = 'All' | 'Launch film' | 'Feature story' | 'Motion system';
 
@@ -113,6 +114,27 @@ export default function Home() {
           <div className="project-meta"><div><p className="project-category">{project.category}</p><h3>{project.title}</h3><p className="project-desc">{project.description}</p></div><span className="project-arrow" aria-hidden="true">↗</span></div>
         </article>)}</div>
         <p className="portfolio-note"><span className="note-mark">i</span> Concept work, not commissioned client work. No client outcomes or performance claims are implied.</p>
+        <section className="motion-film-library" aria-labelledby="motion-film-title">
+          <div className="motion-film-heading">
+            <div><p className="eyebrow"><span>ORIGINAL / 07</span> MOTION DESIGN FILMS</p><h3 id="motion-film-title">Motion, in<br /><em>full colour.</em></h3></div>
+            <p className="section-lede">Original motion films by Motionionary. Press play to explore the work, pacing, and visual details.</p>
+          </div>
+          <div className="motion-film-grid">
+            {motionVideos.map((video, index) => (
+              <article className="motion-film-card" key={video.id}>
+                <div className="motion-film-frame">
+                  <video controls playsInline preload="metadata" poster={video.poster} aria-label={`Play ${video.title}`}>
+                    <source src={video.src} type="video/mp4" />
+                    Your browser does not support embedded video. <a href={video.src}>Open {video.title}</a>.
+                  </video>
+                  <span className="motion-film-index">FILM / {String(index + 1).padStart(2, '0')}</span>
+                </div>
+                <div className="motion-film-meta"><h4>{video.title}</h4><span>{video.duration}</span></div>
+                <p className="motion-film-tag">ORIGINAL MOTION DESIGN</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </section>
 
       <section className="services-section" id="services"><div className="section-wrap services-inner">
