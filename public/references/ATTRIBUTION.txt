@@ -1,7 +1,0 @@
-Glass Product — creator film by LemoLab × Claude Opus 5.5
-Source: https://github.com/lemomo-ai/lemo-opuscar/releases/download/web/glass-product.mp4
-Repository and credits: https://github.com/lemomo-ai/lemo-opuscar
-License: Creative Commons Attribution 4.0 International (CC BY 4.0)
-https://creativecommons.org/licenses/by/4.0/
-
-The film and poster still are included unchanged. They are presented as a creator reference, not as Motionionary client work.
